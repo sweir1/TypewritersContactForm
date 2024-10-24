@@ -35,7 +35,7 @@
 						name="phone"
 						required
 						class="uui-form_input-3 w-input"
-						placeholder="+1 (702) 123-4567" />
+						placeholder="" />
 					<p id="phoneError" style="display: none; color: red; font-size: 0.8em; margin-top: 4px">
 						Please enter a valid phone number.
 					</p>
@@ -189,7 +189,6 @@
 				</div>
 			</form>
 		</div>
-
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
 				const form = document.getElementById("contactForm");
@@ -199,8 +198,8 @@
 				const phoneError = document.getElementById("phoneError");
 				const selectContainers = document.querySelectorAll(".custom-select-container");
 
-				// Initialize dropdowns
 				window.dropdownHandler.initializeCustomDropdowns(selectContainers);
+				window.phoneValidator.formatPhoneNumber(phoneInput);
 
 				// Form Validation Logic
 				function validateForm() {
@@ -246,6 +245,15 @@
 					} else {
 						isValid = false;
 						websiteInput.style.borderColor = "red";
+					}
+
+					if (!window.phoneValidator.validatePhoneNumber(phoneInput.value)) {
+						isValid = false;
+						phoneInput.style.borderColor = "red";
+						phoneError.style.display = "block";
+					} else {
+						phoneInput.style.borderColor = "";
+						phoneError.style.display = "none";
 					}
 
 					return isValid;
