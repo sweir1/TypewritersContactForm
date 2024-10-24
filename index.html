@@ -4,92 +4,144 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Contact Form</title>
-		<script src="emailValidator.js"></script>
+		<link rel="stylesheet" href="dropdown-styles.css" />
+		<script src="https://cdn.jsdelivr.net/gh/sweir1/TypewritersContactForm@master/emailValidator.js"></script>
 	</head>
 	<body>
 		<div class="uui-contact03_form-wrapper w-form">
-			<form id="contactForm" class="wf-form-Contact-03-form">
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div class="uui-form-field-wrapper">
-						<label for="firstname" class="uui-field-label">First name</label>
-						<input type="text" id="firstname" name="firstname" required class="uui-form_input-3 w-input" />
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="lastname" class="uui-field-label">Last name</label>
-						<input type="text" id="lastname" name="lastname" required class="uui-form_input-3 w-input" />
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="jobtitle" class="uui-field-label">Job title</label>
-						<input type="text" id="jobtitle" name="jobtitle" required class="uui-form_input-3 w-input" />
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="email" class="uui-field-label">Business email</label>
-						<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
-						<p id="emailError" class="text-red-500 text-xs hidden">Please enter a valid business email.</p>
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="phone" class="uui-field-label">Phone number</label>
-						<input
-							type="tel"
-							id="phone"
-							name="phone"
-							required
-							class="uui-form_input-3 w-input"
-							placeholder="+1 (702) 123-4567" />
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="website" class="uui-field-label">Company website</label>
-						<input
-							type="text"
-							id="website"
-							name="website"
-							required
-							pattern="[a-zA-Z0-9_\-~\#]+(\.[a-zA-Z0-9_\-~\#]+)*"
-							class="uui-form_input-3 w-input"
-							placeholder="typewriters.io" />
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="company_size" class="uui-field-label">Company size</label>
-						<select id="company_size" name="company_size" required class="uui-form_input-3 w-input">
-							<option value="">Select company size</option>
-							<option value="1-10">1-10 employees</option>
-							<option value="11-50">11-50 employees</option>
-							<option value="51-200">51-200 employees</option>
-							<option value="201-500">201-500 employees</option>
-							<option value="501+">501+ employees</option>
-						</select>
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="budget" class="uui-field-label">Available monthly budget</label>
-						<select id="budget" name="budget" required class="uui-form_input-3 w-input">
-							<option value="">Select budget</option>
-							<option value="0-5000">$0 - $5,000</option>
-							<option value="5001-10000">$5,001 - $10,000</option>
-							<option value="10001-20000">$10,001 - $20,000</option>
-							<option value="20001+">$20,001+</option>
-						</select>
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="interested_in" class="uui-field-label">Interested in</label>
-						<select id="interested_in" name="interested_in" required class="uui-form_input-3 w-input">
-							<option value="">Select solution</option>
-							<option value="solution1">Solution 1</option>
-							<option value="solution2">Solution 2</option>
-							<option value="solution3">Solution 3</option>
-							<!-- Add more solutions as needed -->
-						</select>
-					</div>
-					<div class="uui-form-field-wrapper">
-						<label for="industry" class="uui-field-label">Industry</label>
-						<select id="industry" name="industry" required class="uui-form_input-3 w-input">
-							<option value="">Select industry</option>
-							<option value="tech">Technology</option>
-							<option value="finance">Finance</option>
-							<option value="healthcare">Healthcare</option>
-							<!-- Add more industries as needed -->
-						</select>
+			<form id="contactForm" class="uui-contact03_form">
+				<div class="uui-form-field-wrapper">
+					<label for="firstname" class="uui-field-label">Name</label>
+					<input type="text" id="firstname" name="firstname" required class="uui-form_input-3 w-input" />
+				</div>
+				<div class="uui-form-field-wrapper">
+					<label for="jobtitle" class="uui-field-label">Job title</label>
+					<input type="text" id="jobtitle" name="jobtitle" required class="uui-form_input-3 w-input" />
+				</div>
+				<div class="uui-form-field-wrapper">
+					<label for="email" class="uui-field-label">Business email</label>
+					<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
+					<p id="emailError" style="display: none">Please enter a valid business email.</p>
+				</div>
+				<div class="uui-form-field-wrapper">
+					<label for="phone" class="uui-field-label">Phone number</label>
+					<input
+						type="tel"
+						id="phone"
+						name="phone"
+						required
+						class="uui-form_input-3 w-input"
+						placeholder="+1 (702) 123-4567" />
+				</div>
+				<div class="uui-form-field-wrapper">
+					<label for="website" class="uui-field-label">Company website</label>
+					<input
+						type="text"
+						id="website"
+						name="website"
+						required
+						pattern="[a-zA-Z0-9_\-~\#]+(\.[a-zA-Z0-9_\-~\#]+)*"
+						class="uui-form_input-3 w-input"
+						placeholder="typewriters.io" />
+				</div>
+				<div class="uui-form-field-wrapper">
+					<label for="company_size" class="uui-field-label">Company size</label>
+					<select id="company_size" name="company_size" required class="uui-form_select-3 w-select">
+						<option value="">Select company size</option>
+						<option value="1-10">1-10 employees</option>
+						<option value="11-50">11-50 employees</option>
+						<option value="51-200">51-200 employees</option>
+						<option value="201-500">201-500 employees</option>
+						<option value="501+">501+ employees</option>
+					</select>
+					<div class="custom-select-container">
+						<div class="custom-select-trigger">Select company size</div>
+						<div class="custom-options">
+							<div class="custom-option" data-value="">Select company size</div>
+							<div class="custom-option" data-value="1-10">1-10 employees</div>
+							<div class="custom-option" data-value="11-50">11-50 employees</div>
+							<div class="custom-option" data-value="51-200">51-200 employees</div>
+							<div class="custom-option" data-value="201-500">201-500 employees</div>
+							<div class="custom-option" data-value="501+">501+ employees</div>
+						</div>
 					</div>
 				</div>
+
+				<!-- Budget -->
+				<div class="uui-form-field-wrapper">
+					<label for="budget" class="uui-field-label">Available monthly budget</label>
+					<select id="budget" name="budget" required class="uui-form_select-3 w-select">
+						<option value="">Select budget</option>
+						<option value="0-5000">$0 - $5,000</option>
+						<option value="5001-10000">$5,001 - $10,000</option>
+						<option value="10001-20000">$10,001 - $20,000</option>
+						<option value="20001+">$20,001+</option>
+					</select>
+					<div class="custom-select-container">
+						<div class="custom-select-trigger">Select budget</div>
+						<div class="custom-options">
+							<div class="custom-option" data-value="">Select budget</div>
+							<div class="custom-option" data-value="0-5000">$0 - $5,000</div>
+							<div class="custom-option" data-value="5001-10000">$5,001 - $10,000</div>
+							<div class="custom-option" data-value="10001-20000">$10,001 - $20,000</div>
+							<div class="custom-option" data-value="20001+">$20,001+</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Interested In -->
+				<div class="uui-form-field-wrapper">
+					<label for="interested_in" class="uui-field-label">Interested in</label>
+					<select id="interested_in" name="interested_in" required class="uui-form_select-3 w-select">
+						<option value="">Select solution</option>
+						<option value="solution1">Solution 1</option>
+						<option value="solution2">Solution 2</option>
+						<option value="solution3">Solution 3</option>
+					</select>
+					<div class="custom-select-container">
+						<div class="custom-select-trigger">Select solution</div>
+						<div class="custom-options">
+							<div class="custom-option" data-value="">Select solution</div>
+							<div class="custom-option" data-value="solution1">Solution 1</div>
+							<div class="custom-option" data-value="solution2">Solution 2</div>
+							<div class="custom-option" data-value="solution3">Solution 3</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Industry -->
+				<div class="uui-form-field-wrapper">
+					<label for="industry" class="uui-field-label">Industry</label>
+					<select id="industry" name="industry" required class="uui-form_select-3 w-select">
+						<option value="">Select industry</option>
+						<option value="tech">Technology</option>
+						<option value="finance">Finance</option>
+						<option value="healthcare">Healthcare</option>
+					</select>
+					<div class="custom-select-container">
+						<div class="custom-select-trigger">Select industry</div>
+						<div class="custom-options">
+							<div class="custom-option" data-value="">Select industry</div>
+							<div class="custom-option" data-value="tech">Technology</div>
+							<div class="custom-option" data-value="finance">Finance</div>
+							<div class="custom-option" data-value="healthcare">Healthcare</div>
+						</div>
+					</div>
+				</div>
+				<label id="Contact03-checkbox" class="w-checkbox uui-form-checkbox"
+					><div class="w-checkbox-input w-checkbox-input--inputType-custom uui-form-checkbox-icon"></div>
+					<input
+						id="Contact03-checkbox"
+						type="checkbox"
+						name="Contact-03-checkbox"
+						data-name="Contact 03 checkbox"
+						required=""
+						style="opacity: 0; position: absolute; z-index: -1" /><span
+						for="Contact-03-checkbox"
+						class="uui-form-checkbox-label w-form-label"
+						>You agree to our <a href="#" class="uui-text-style-link-4">privacy policy</a>.</span
+					></label
+				>
 				<div class="uui-form-button-wrapper">
 					<button type="submit" class="uui-button-8 w-button">Continue</button>
 				</div>
@@ -101,15 +153,45 @@
 				const form = document.getElementById("contactForm");
 				const emailInput = document.getElementById("email");
 				const emailError = document.getElementById("emailError");
+				const selectContainers = document.querySelectorAll(".custom-select-container");
 
-				form.addEventListener("submit", function (event) {
-					event.preventDefault();
-					if (validateForm()) {
-						console.log("Form submitted successfully");
-						// Here you would typically send the form data to your server
-					}
-				});
+				// Custom Dropdown Logic
+				function initializeCustomDropdowns() {
+					selectContainers.forEach((container) => {
+						const trigger = container.querySelector(".custom-select-trigger");
+						const options = container.querySelectorAll(".custom-option");
+						const originalSelect = container.parentElement.querySelector("select");
 
+						trigger.addEventListener("click", (e) => {
+							e.stopPropagation();
+							container.classList.toggle("open");
+						});
+
+						options.forEach((option) => {
+							option.addEventListener("click", () => {
+								const value = option.dataset.value;
+								trigger.textContent = option.textContent;
+								originalSelect.value = value;
+
+								// Reset validation styling when selection is made
+								originalSelect.style.borderColor = "";
+								trigger.style.borderColor = "";
+
+								options.forEach((opt) => opt.classList.remove("selected"));
+								option.classList.add("selected");
+								container.classList.remove("open");
+								originalSelect.dispatchEvent(new Event("change"));
+							});
+						});
+					});
+
+					// Close dropdowns when clicking outside
+					document.addEventListener("click", () => {
+						selectContainers.forEach((container) => container.classList.remove("open"));
+					});
+				}
+
+				// Form Validation Logic
 				function validateForm() {
 					let isValid = true;
 
@@ -117,43 +199,68 @@
 					form.querySelectorAll("[required]").forEach(function (element) {
 						if (!element.value.trim()) {
 							isValid = false;
-							element.classList.add("border-red-500");
+							element.style.borderColor = "red";
+							// Also style the custom trigger if it's a select
+							if (element.tagName === "SELECT") {
+								const customTrigger = element.parentElement.querySelector(".custom-select-trigger");
+								if (customTrigger) {
+									customTrigger.style.borderColor = "red";
+								}
+							}
 						} else {
-							element.classList.remove("border-red-500");
+							element.style.borderColor = "";
+							if (element.tagName === "SELECT") {
+								const customTrigger = element.parentElement.querySelector(".custom-select-trigger");
+								if (customTrigger) {
+									customTrigger.style.borderColor = "";
+								}
+							}
 						}
 					});
 
-					// Validate email using the EmailValidator
+					// Email validation
 					if (!window.emailValidator.validateEmail(emailInput.value)) {
 						isValid = false;
-						emailInput.classList.add("border-red-500");
-						emailError.classList.remove("hidden");
+						emailInput.style.borderColor = "red";
+						emailError.style.display = "block";
 					} else {
-						emailInput.classList.remove("border-red-500");
-						emailError.classList.add("hidden");
+						emailInput.style.borderColor = "";
+						emailError.style.display = "none";
 					}
 
-					// Validate URL
+					// Website validation
 					const websiteInput = document.getElementById("website");
 					if (websiteInput.value.includes(".") && isValid) {
-						isValid = true;
+						websiteInput.style.borderColor = "";
 					} else {
 						isValid = false;
-						websiteInput.classList.add("border-red-500");
+						websiteInput.style.borderColor = "red";
 					}
 
-					// Validate phone number
+					// Phone validation
 					const phoneInput = document.getElementById("phone");
 					const phoneNumberRegex = /^\(?(\d{3})\)?[-.\s]??(\d{3})[-.\s]??(\d{4})$/;
 					if (!phoneNumberRegex.test(phoneInput.value) && isValid) {
 						isValid = false;
-						phoneInput.classList.add("border-red-500");
+						phoneInput.style.borderColor = "red";
 					} else {
-						phoneInput.classList.remove("border-red-500");
+						phoneInput.style.borderColor = "";
 					}
 
 					return isValid;
 				}
+
+				// Initialize dropdowns
+				initializeCustomDropdowns();
+
+				// Form submit handler
+				form.addEventListener("submit", function (event) {
+					event.preventDefault();
+					if (validateForm()) {
+						console.log("Form submitted successfully");
+						// Here you would typically send the form data to your server
+					}
+				});
 			});
 		</script>
 	</body>
