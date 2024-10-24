@@ -1,3 +1,17 @@
+.uui-form_select-3.w-select {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+/* Rest of your existing CSS remains the same */
+.custom-select-container {
+	position: relative;
+	width: 100%;
+}
+
 .custom-select-container {
 	position: relative;
 	width: 100%;
