@@ -6,7 +6,6 @@
 	pointer-events: none;
 }
 
-/* Rest of your existing CSS remains the same */
 .custom-select-container {
 	position: relative;
 	width: 100%;
@@ -77,4 +76,15 @@
 .custom-option.selected {
 	background: #eff6ff;
 	color: #2563eb;
+}
+
+.custom-option.placeholder {
+	color: #9ca3af; /* Grey color for placeholder */
+	cursor: default; /* Change cursor to indicate non-interactive */
+	pointer-events: none; /* Prevent clicking */
+	background: #f9fafb; /* Slight background difference */
+}
+
+.custom-option.placeholder:hover {
+	background: #f9fafb; /* Prevent hover effect */
 }
