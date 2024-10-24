@@ -4,8 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Contact Form</title>
-		<link rel="stylesheet" href="dropdown-styles.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/gh/sweir1/TypewritersContactForm@master/dropdown-styles.css" />
 		<script src="https://cdn.jsdelivr.net/gh/sweir1/TypewritersContactForm@master/emailValidator.js"></script>
+		<script src="phoneValidator.js"></script>
+		<script src="dropdownHandler.js"></script>
 	</head>
 	<body>
 		<div class="uui-contact03_form-wrapper w-form">
@@ -32,6 +36,9 @@
 						required
 						class="uui-form_input-3 w-input"
 						placeholder="+1 (702) 123-4567" />
+					<p id="phoneError" style="display: none; color: red; font-size: 0.8em; margin-top: 4px">
+						Please enter a valid phone number.
+					</p>
 				</div>
 				<div class="uui-form-field-wrapper">
 					<label for="website" class="uui-field-label">Company website</label>
@@ -40,13 +47,19 @@
 						id="website"
 						name="website"
 						required
-						pattern="[a-zA-Z0-9_\-~\#]+(\.[a-zA-Z0-9_\-~\#]+)*"
+						pattern="^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*$"
 						class="uui-form_input-3 w-input"
 						placeholder="typewriters.io" />
 				</div>
+				<!-- Company Size -->
 				<div class="uui-form-field-wrapper">
-					<label for="company_size" class="uui-field-label">Company size</label>
-					<select id="company_size" name="company_size" required class="uui-form_select-3 w-select">
+					<label for="company-size-trigger" class="uui-field-label">Company size</label>
+					<select
+						id="company_size"
+						name="company_size"
+						required
+						class="uui-form_select-3 w-select"
+						tabindex="-1">
 						<option value="">Select company size</option>
 						<option value="1-10">1-10 employees</option>
 						<option value="11-50">11-50 employees</option>
@@ -55,22 +68,28 @@
 						<option value="501+">501+ employees</option>
 					</select>
 					<div class="custom-select-container">
-						<div class="custom-select-trigger">Select company size</div>
-						<div class="custom-options">
-							<div class="custom-option placeholder" data-value="">Select company size</div>
-							<div class="custom-option" data-value="1-10">1-10 employees</div>
-							<div class="custom-option" data-value="11-50">11-50 employees</div>
-							<div class="custom-option" data-value="51-200">51-200 employees</div>
-							<div class="custom-option" data-value="201-500">201-500 employees</div>
-							<div class="custom-option" data-value="501+">501+ employees</div>
+						<div
+							id="company-size-trigger"
+							class="custom-select-trigger"
+							role="combobox"
+							aria-label="Company size"
+							tabindex="0">
+							Select company size
+						</div>
+						<div class="custom-options" role="listbox">
+							<div class="custom-option" data-value="1-10" role="option">1-10 employees</div>
+							<div class="custom-option" data-value="11-50" role="option">11-50 employees</div>
+							<div class="custom-option" data-value="51-200" role="option">51-200 employees</div>
+							<div class="custom-option" data-value="201-500" role="option">201-500 employees</div>
+							<div class="custom-option" data-value="501+" role="option">501+ employees</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Budget -->
 				<div class="uui-form-field-wrapper">
-					<label for="budget" class="uui-field-label">Available monthly budget</label>
-					<select id="budget" name="budget" required class="uui-form_select-3 w-select">
+					<label for="budget-trigger" class="uui-field-label">Available monthly budget</label>
+					<select id="budget" name="budget" required class="uui-form_select-3 w-select" tabindex="-1">
 						<option value="">Select budget</option>
 						<option value="0-5000">$0 - $5,000</option>
 						<option value="5001-10000">$5,001 - $10,000</option>
@@ -78,53 +97,76 @@
 						<option value="20001+">$20,001+</option>
 					</select>
 					<div class="custom-select-container">
-						<div class="custom-select-trigger">Select budget</div>
-						<div class="custom-options">
-							<div class="custom-option placeholder" data-value="">Select budget</div>
-							<div class="custom-option" data-value="0-5000">$0 - $5,000</div>
-							<div class="custom-option" data-value="5001-10000">$5,001 - $10,000</div>
-							<div class="custom-option" data-value="10001-20000">$10,001 - $20,000</div>
-							<div class="custom-option" data-value="20001+">$20,001+</div>
+						<div
+							id="budget-trigger"
+							class="custom-select-trigger"
+							role="combobox"
+							aria-label="Available monthly budget"
+							tabindex="0">
+							Select budget
+						</div>
+						<div class="custom-options" role="listbox">
+							<div class="custom-option" data-value="0-5000" role="option">$0 - $5,000</div>
+							<div class="custom-option" data-value="5001-10000" role="option">$5,001 - $10,000</div>
+							<div class="custom-option" data-value="10001-20000" role="option">$10,001 - $20,000</div>
+							<div class="custom-option" data-value="20001+" role="option">$20,001+</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Interested In -->
 				<div class="uui-form-field-wrapper">
-					<label for="interested_in" class="uui-field-label">Interested in</label>
-					<select id="interested_in" name="interested_in" required class="uui-form_select-3 w-select">
+					<label for="interested-in-trigger" class="uui-field-label">Interested in</label>
+					<select
+						id="interested_in"
+						name="interested_in"
+						required
+						class="uui-form_select-3 w-select"
+						tabindex="-1">
 						<option value="">Select solution</option>
 						<option value="solution1">Solution 1</option>
 						<option value="solution2">Solution 2</option>
 						<option value="solution3">Solution 3</option>
 					</select>
 					<div class="custom-select-container">
-						<div class="custom-select-trigger">Select solution</div>
-						<div class="custom-options">
-							<div class="custom-option placeholder" data-value="">Select solution</div>
-							<div class="custom-option" data-value="solution1">Solution 1</div>
-							<div class="custom-option" data-value="solution2">Solution 2</div>
-							<div class="custom-option" data-value="solution3">Solution 3</div>
+						<div
+							id="interested-in-trigger"
+							class="custom-select-trigger"
+							role="combobox"
+							aria-label="Interested in"
+							tabindex="0">
+							Select solution
+						</div>
+						<div class="custom-options" role="listbox">
+							<div class="custom-option" data-value="solution1" role="option">Solution 1</div>
+							<div class="custom-option" data-value="solution2" role="option">Solution 2</div>
+							<div class="custom-option" data-value="solution3" role="option">Solution 3</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Industry -->
 				<div class="uui-form-field-wrapper">
-					<label for="industry" class="uui-field-label">Industry</label>
-					<select id="industry" name="industry" required class="uui-form_select-3 w-select">
+					<label for="industry-trigger" class="uui-field-label">Industry</label>
+					<select id="industry" name="industry" required class="uui-form_select-3 w-select" tabindex="-1">
 						<option value="">Select industry</option>
 						<option value="tech">Technology</option>
 						<option value="finance">Finance</option>
 						<option value="healthcare">Healthcare</option>
 					</select>
 					<div class="custom-select-container">
-						<div class="custom-select-trigger">Select industry</div>
-						<div class="custom-options">
-							<div class="custom-option placeholder" data-value="">Select industry</div>
-							<div class="custom-option" data-value="tech">Technology</div>
-							<div class="custom-option" data-value="finance">Finance</div>
-							<div class="custom-option" data-value="healthcare">Healthcare</div>
+						<div
+							id="industry-trigger"
+							class="custom-select-trigger"
+							role="combobox"
+							aria-label="Industry"
+							tabindex="0">
+							Select industry
+						</div>
+						<div class="custom-options" role="listbox">
+							<div class="custom-option" data-value="tech" role="option">Technology</div>
+							<div class="custom-option" data-value="finance" role="option">Finance</div>
+							<div class="custom-option" data-value="healthcare" role="option">Healthcare</div>
 						</div>
 					</div>
 				</div>
@@ -153,43 +195,12 @@
 				const form = document.getElementById("contactForm");
 				const emailInput = document.getElementById("email");
 				const emailError = document.getElementById("emailError");
+				const phoneInput = document.getElementById("phone");
+				const phoneError = document.getElementById("phoneError");
 				const selectContainers = document.querySelectorAll(".custom-select-container");
 
-				// Custom Dropdown Logic
-				function initializeCustomDropdowns() {
-					selectContainers.forEach((container) => {
-						const trigger = container.querySelector(".custom-select-trigger");
-						const options = container.querySelectorAll(".custom-option");
-						const originalSelect = container.parentElement.querySelector("select");
-
-						trigger.addEventListener("click", (e) => {
-							e.stopPropagation();
-							container.classList.toggle("open");
-						});
-
-						options.forEach((option) => {
-							option.addEventListener("click", () => {
-								const value = option.dataset.value;
-								trigger.textContent = option.textContent;
-								originalSelect.value = value;
-
-								// Reset validation styling when selection is made
-								originalSelect.style.borderColor = "";
-								trigger.style.borderColor = "";
-
-								options.forEach((opt) => opt.classList.remove("selected"));
-								option.classList.add("selected");
-								container.classList.remove("open");
-								originalSelect.dispatchEvent(new Event("change"));
-							});
-						});
-					});
-
-					// Close dropdowns when clicking outside
-					document.addEventListener("click", () => {
-						selectContainers.forEach((container) => container.classList.remove("open"));
-					});
-				}
+				// Initialize dropdowns
+				window.dropdownHandler.initializeCustomDropdowns(selectContainers);
 
 				// Form Validation Logic
 				function validateForm() {
@@ -237,28 +248,18 @@
 						websiteInput.style.borderColor = "red";
 					}
 
-					// Phone validation
-					const phoneInput = document.getElementById("phone");
-					const phoneNumberRegex = /^\(?(\d{3})\)?[-.\s]??(\d{3})[-.\s]??(\d{4})$/;
-					if (!phoneNumberRegex.test(phoneInput.value) && isValid) {
-						isValid = false;
-						phoneInput.style.borderColor = "red";
-					} else {
-						phoneInput.style.borderColor = "";
-					}
-
 					return isValid;
 				}
-
-				// Initialize dropdowns
-				initializeCustomDropdowns();
 
 				// Form submit handler
 				form.addEventListener("submit", function (event) {
 					event.preventDefault();
 					if (validateForm()) {
 						console.log("Form submitted successfully");
-						// Here you would typically send the form data to your server
+						// Open Calendly in new tab
+						window.open("https://calendly.com/typewriters/30min", "_blank");
+						// Submit the form
+						this.submit();
 					}
 				});
 			});
