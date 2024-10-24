@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Contact Form</title>
+		<script src="emailValidator.js"></script>
+	</head>
+	<body>
+		<div class="uui-contact03_form-wrapper w-form">
+			<form id="contactForm" class="wf-form-Contact-03-form">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div class="uui-form-field-wrapper">
+						<label for="firstname" class="uui-field-label">First name</label>
+						<input type="text" id="firstname" name="firstname" required class="uui-form_input-3 w-input" />
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="lastname" class="uui-field-label">Last name</label>
+						<input type="text" id="lastname" name="lastname" required class="uui-form_input-3 w-input" />
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="jobtitle" class="uui-field-label">Job title</label>
+						<input type="text" id="jobtitle" name="jobtitle" required class="uui-form_input-3 w-input" />
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="email" class="uui-field-label">Business email</label>
+						<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
+						<p id="emailError" class="text-red-500 text-xs hidden">Please enter a valid business email.</p>
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="phone" class="uui-field-label">Phone number</label>
+						<input
+							type="tel"
+							id="phone"
+							name="phone"
+							required
+							class="uui-form_input-3 w-input"
+							placeholder="+1 (702) 123-4567" />
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="website" class="uui-field-label">Company website</label>
+						<input
+							type="text"
+							id="website"
+							name="website"
+							required
+							pattern="[a-zA-Z0-9_\-~\#]+(\.[a-zA-Z0-9_\-~\#]+)*"
+							class="uui-form_input-3 w-input"
+							placeholder="typewriters.io" />
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="company_size" class="uui-field-label">Company size</label>
+						<select id="company_size" name="company_size" required class="uui-form_input-3 w-input">
+							<option value="">Select company size</option>
+							<option value="1-10">1-10 employees</option>
+							<option value="11-50">11-50 employees</option>
+							<option value="51-200">51-200 employees</option>
+							<option value="201-500">201-500 employees</option>
+							<option value="501+">501+ employees</option>
+						</select>
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="budget" class="uui-field-label">Available monthly budget</label>
+						<select id="budget" name="budget" required class="uui-form_input-3 w-input">
+							<option value="">Select budget</option>
+							<option value="0-5000">$0 - $5,000</option>
+							<option value="5001-10000">$5,001 - $10,000</option>
+							<option value="10001-20000">$10,001 - $20,000</option>
+							<option value="20001+">$20,001+</option>
+						</select>
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="interested_in" class="uui-field-label">Interested in</label>
+						<select id="interested_in" name="interested_in" required class="uui-form_input-3 w-input">
+							<option value="">Select solution</option>
+							<option value="solution1">Solution 1</option>
+							<option value="solution2">Solution 2</option>
+							<option value="solution3">Solution 3</option>
+							<!-- Add more solutions as needed -->
+						</select>
+					</div>
+					<div class="uui-form-field-wrapper">
+						<label for="industry" class="uui-field-label">Industry</label>
+						<select id="industry" name="industry" required class="uui-form_input-3 w-input">
+							<option value="">Select industry</option>
+							<option value="tech">Technology</option>
+							<option value="finance">Finance</option>
+							<option value="healthcare">Healthcare</option>
+							<!-- Add more industries as needed -->
+						</select>
+					</div>
+				</div>
+				<div class="uui-form-button-wrapper">
+					<button type="submit" class="uui-button-8 w-button">Continue</button>
+				</div>
+			</form>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const form = document.getElementById("contactForm");
+				const emailInput = document.getElementById("email");
+				const emailError = document.getElementById("emailError");
+
+				form.addEventListener("submit", function (event) {
+					event.preventDefault();
+					if (validateForm()) {
+						console.log("Form submitted successfully");
+						// Here you would typically send the form data to your server
+					}
+				});
+
+				function validateForm() {
+					let isValid = true;
+
+					// Validate all required fields
+					form.querySelectorAll("[required]").forEach(function (element) {
+						if (!element.value.trim()) {
+							isValid = false;
+							element.classList.add("border-red-500");
+						} else {
+							element.classList.remove("border-red-500");
+						}
+					});
+
+					// Validate email using the EmailValidator
+					if (!window.emailValidator.validateEmail(emailInput.value)) {
+						isValid = false;
+						emailInput.classList.add("border-red-500");
+						emailError.classList.remove("hidden");
+					} else {
+						emailInput.classList.remove("border-red-500");
+						emailError.classList.add("hidden");
+					}
+
+					// Validate URL
+					const websiteInput = document.getElementById("website");
+					if (websiteInput.value.includes(".") && isValid) {
+						isValid = true;
+					} else {
+						isValid = false;
+						websiteInput.classList.add("border-red-500");
+					}
+
+					// Validate phone number
+					const phoneInput = document.getElementById("phone");
+					const phoneNumberRegex = /^\(?(\d{3})\)?[-.\s]??(\d{3})[-.\s]??(\d{4})$/;
+					if (!phoneNumberRegex.test(phoneInput.value) && isValid) {
+						isValid = false;
+						phoneInput.classList.add("border-red-500");
+					} else {
+						phoneInput.classList.remove("border-red-500");
+					}
+
+					return isValid;
+				}
+			});
+		</script>
+	</body>
+</html>
