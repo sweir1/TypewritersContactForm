@@ -49,13 +49,16 @@
 							// Log the request details
 							console.log("Sending request to verify token...");
 
-							return fetch("/.netlify/functions/verify-recaptcha", {
-								method: "POST",
-								headers: {
-									"Content-Type": "application/json",
+							return fetch(
+								"https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/verify-recaptcha",
+								{
+									method: "POST",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({ token }),
 								},
-								body: JSON.stringify({ token }),
-							});
+							);
 						})
 						.then((response) => {
 							console.log("Response status:", response.status);
