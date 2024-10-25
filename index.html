@@ -8,6 +8,7 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/gh/sweir1/TypewritersContactForm@master/dropdown-styles.css" />
 		<script src="https://cdn.jsdelivr.net/gh/sweir1/TypewritersContactForm@master/emailValidator.js"></script>
+		<script src="https://www.google.com/recaptcha/api.js?render=6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR"></script>
 		<script src="phoneValidator.js"></script>
 		<script src="dropdownHandler.js"></script>
 	</head>
@@ -185,7 +186,7 @@
 					></label
 				>
 				<div class="uui-form-button-wrapper">
-					<button type="submit" class="uui-button-8 w-button">Continue</button>
+					<button type="submit" class="uui-button-8 w-button" id="submit-button">Continue</button>
 				</div>
 			</form>
 		</div>
@@ -198,6 +199,7 @@
 				const phoneError = document.getElementById("phoneError");
 				const selectContainers = document.querySelectorAll(".custom-select-container");
 
+				// Initialize existing functionality
 				window.dropdownHandler.initializeCustomDropdowns(selectContainers);
 				window.phoneValidator.formatPhoneNumber(phoneInput);
 
@@ -240,13 +242,15 @@
 
 					// Website validation
 					const websiteInput = document.getElementById("website");
-					if (websiteInput.value.includes(".") && isValid) {
-						websiteInput.style.borderColor = "";
-					} else {
+					if (!websiteInput.value.includes(".")) {
+						// Only check the website condition
 						isValid = false;
 						websiteInput.style.borderColor = "red";
+					} else {
+						websiteInput.style.borderColor = "";
 					}
 
+					// Phone validation
 					if (!window.phoneValidator.validatePhoneNumber(phoneInput.value)) {
 						isValid = false;
 						phoneInput.style.borderColor = "red";
@@ -259,15 +263,62 @@
 					return isValid;
 				}
 
+				// Function to verify token with Netlify function
+				async function verifyToken(token) {
+					try {
+						const response = await fetch("/.netlify/functions/verify-recaptcha", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ token }),
+						});
+
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+
+						return await response.json();
+					} catch (error) {
+						throw new Error("Failed to verify reCAPTCHA");
+					}
+				}
+
 				// Form submit handler
-				form.addEventListener("submit", function (event) {
+				form.addEventListener("submit", async function (event) {
 					event.preventDefault();
-					if (validateForm()) {
-						console.log("Form submitted successfully");
-						// Open Calendly in new tab
-						window.open("https://calendly.com/typewriters/30min", "_blank");
-						// Submit the form
-						this.submit();
+
+					// First validate the form
+					if (!validateForm()) {
+						return;
+					}
+
+					try {
+						// Execute reCAPTCHA
+						await new Promise((resolve) => {
+							grecaptcha.ready(async function () {
+								const token = await grecaptcha.execute("6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR", {
+									action: "submit",
+								});
+
+								// Verify the token
+								const response = await verifyToken(token);
+
+								if (response.success && response.score > 0.5) {
+									// Open Calendly in new tab
+									window.open("https://calendly.com/typewriters/30min", "_blank");
+
+									// Submit the form
+									form.submit();
+								} else {
+									throw new Error("Security check failed");
+								}
+
+								resolve();
+							});
+						});
+					} catch (error) {
+						alert("Security check failed. Please try again later.");
 					}
 				});
 			});

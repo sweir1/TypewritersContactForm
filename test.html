@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+	<head>
+		<title>reCAPTCHA Test</title>
+		<!-- Add error handling for script loading -->
+		<script>
+			window.onerror = function (msg, url, line) {
+				console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line);
+				document.getElementById("result").innerHTML = "Script error: " + msg;
+				return false;
+			};
+		</script>
+		<script>
+			// Add a callback to verify reCAPTCHA loads
+			function onRecaptchaLoad() {
+				console.log("reCAPTCHA has loaded successfully");
+			}
+		</script>
+		<script
+			src="https://www.google.com/recaptcha/api.js?render=6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR&onload=onRecaptchaLoad"
+			async
+			defer></script>
+	</head>
+	<body>
+		<button onclick="testRecaptcha()">Test reCAPTCHA</button>
+		<div id="result"></div>
+		<script>
+			function testRecaptcha() {
+				document.getElementById("result").innerHTML = "Loading...";
+
+				// Check if grecaptcha is defined
+				if (typeof grecaptcha === "undefined") {
+					document.getElementById("result").innerHTML = "Error: reCAPTCHA not loaded";
+					return;
+				}
+
+				console.log("Testing reCAPTCHA...");
+
+				grecaptcha.ready(function () {
+					console.log("reCAPTCHA is ready");
+
+					grecaptcha
+						.execute("6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR", {
+							action: "submit",
+						})
+						.then(function (token) {
+							console.log("Token received:", token.substring(0, 20) + "...");
+
+							// Log the request details
+							console.log("Sending request to verify token...");
+
+							return fetch("/.netlify/functions/verify-recaptcha", {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({ token }),
+							});
+						})
+						.then((response) => {
+							console.log("Response status:", response.status);
+							return response.json();
+						})
+						.then((data) => {
+							console.log("Verification response:", data);
+							document.getElementById("result").innerHTML = `Result: ${JSON.stringify(data, null, 2)}`;
+						})
+						.catch((error) => {
+							console.error("Error in reCAPTCHA process:", error);
+							document.getElementById("result").innerHTML =
+								`Error: ${error.message}\n\nCheck console for more details`;
+						});
+				});
+			}
+
+			// Add initialization check
+			window.addEventListener("load", function () {
+				if (typeof grecaptcha === "undefined") {
+					console.error("reCAPTCHA failed to load");
+				} else {
+					console.log("reCAPTCHA object is available");
+				}
+			});
+		</script>
+	</body>
+</html>
