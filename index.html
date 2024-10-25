@@ -266,13 +266,16 @@
 				// Function to verify token with Netlify function
 				async function verifyToken(token) {
 					try {
-						const response = await fetch("/.netlify/functions/verify-recaptcha", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
+						const response = await fetch(
+							"https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/verify-recaptcha",
+							{
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({ token }),
 							},
-							body: JSON.stringify({ token }),
-						});
+						);
 
 						if (!response.ok) {
 							throw new Error("Network response was not ok");

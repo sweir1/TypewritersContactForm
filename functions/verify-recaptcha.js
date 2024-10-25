@@ -8,6 +8,7 @@ const allowedOrigins = [
 	"http://127.0.0.1:5500",
 	"https://subtle-phoenix-a52fad.netlify.app",
 	"https://typewriters.io",
+	"https://eduardos-stupendous-site-4488f5.webflow.io/",
 ];
 
 exports.handler = async (event) => {
