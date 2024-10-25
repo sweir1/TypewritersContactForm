@@ -159,15 +159,12 @@
 					</div>
 				</div>
 			</div>
-			<label class="custom-checkbox">
-				<div class="checkbox-wrapper">
-					<input type="checkbox" name="privacy-checkbox" />
-					<div class="checkbox-icon"></div>
-				</div>
-				<span class="custom-checkbox-label"
-					>You agree to our <a href="/privacy-policy">privacy policy</a>.</span
+			<div class="privacy-consent-container">
+				<input type="checkbox" class="privacy-consent-checkbox" id="privacy-consent-checkbox" required />
+				<label class="privacy-consent-label" for="privacy-consent-checkbox"
+					>You agree to our <a href="/privacy-policy" class="privacy-consent-link">privacy policy</a>.</label
 				>
-			</label>
+			</div>
 			<div class="uui-form-button-wrapper">
 				<button type="submit" class="custom-submit-button" id="submit-button">Continue</button>
 			</div>
