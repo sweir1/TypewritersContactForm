@@ -71,7 +71,7 @@ exports.handler = async (event, context) => {
         </head>
         <body>
             <div class="container">
-                <h1>New Contact Form Submission - Typewriters.ai</h1>
+                <h1>New Contact Form Submission - Typewriters.io</h1>
                 <div class="contact-details">
                     <h2>Contact Information</h2>
                     <p><span class="highlight">Name:</span> ${firstname}</p>
@@ -95,9 +95,9 @@ exports.handler = async (event, context) => {
 
 		// Send email
 		let info = await transporter.sendMail({
-			from: '"Typewriters.ai" <' + process.env.EMAIL_USER + ">",
+			from: '"Typewriters.io" <' + process.env.EMAIL_USER + ">",
 			to: process.env.NOTIFICATION_EMAIL,
-			subject: "New Contact Form Submission - Typewriters.ai",
+			subject: "New Contact Form Submission - Typewriters.io",
 			text: `New contact form submission received from ${firstname}. Company Size: ${company_size}, Budget: ${budget}, Industry: ${industry}. Please check the HTML version for full details.`,
 			html: htmlContent,
 		});

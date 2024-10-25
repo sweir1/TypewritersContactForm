@@ -286,6 +286,7 @@
 					}
 				}
 
+				// Form submit handler
 				form.addEventListener("submit", async function (event) {
 					event.preventDefault();
 					// First validate the form
@@ -320,13 +321,16 @@
 										};
 
 										// Start email sending process but don't await it
-										const emailPromise = fetch("/.netlify/functions/send-email", {
-											method: "POST",
-											headers: {
-												"Content-Type": "application/json",
+										const emailPromise = fetch(
+											"https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/send-email",
+											{
+												method: "POST",
+												headers: {
+													"Content-Type": "application/json",
+												},
+												body: JSON.stringify(formData),
 											},
-											body: JSON.stringify(formData),
-										});
+										);
 
 										// Open Calendly immediately after captcha verification
 										window.open("https://calendly.com/typewriters/30min", "_blank");
