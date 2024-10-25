@@ -286,7 +286,6 @@
 					}
 				}
 
-				// Form submit handler
 				form.addEventListener("submit", async function (event) {
 					event.preventDefault();
 					// First validate the form
@@ -320,8 +319,8 @@
 											industry: document.getElementById("industry").value,
 										};
 
-										// Send email through Netlify function
-										const emailResponse = await fetch("/.netlify/functions/send-email", {
+										// Start email sending process but don't await it
+										const emailPromise = fetch("/.netlify/functions/send-email", {
 											method: "POST",
 											headers: {
 												"Content-Type": "application/json",
@@ -329,13 +328,23 @@
 											body: JSON.stringify(formData),
 										});
 
-										if (!emailResponse.ok) {
-											throw new Error("Failed to send email");
-										}
-
-										// If email sent successfully, open Calendly and submit form
+										// Open Calendly immediately after captcha verification
 										window.open("https://calendly.com/typewriters/30min", "_blank");
+
+										// Submit form
 										form.submit();
+
+										// Handle email response in the background
+										emailPromise
+											.then((response) => {
+												if (!response.ok) {
+													console.error("Failed to send email");
+												}
+											})
+											.catch((error) => {
+												console.error("Error sending email:", error);
+											});
+
 										resolve();
 									} else {
 										reject(new Error("Security check failed"));
