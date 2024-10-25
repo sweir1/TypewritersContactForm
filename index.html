@@ -178,7 +178,6 @@
 						type="checkbox"
 						name="Contact-03-checkbox"
 						data-name="Contact 03 checkbox"
-						required=""
 						style="opacity: 0; position: absolute; z-index: -1" /><span
 						for="Contact-03-checkbox"
 						class="uui-form-checkbox-label w-form-label"
@@ -290,7 +289,6 @@
 				// Form submit handler
 				form.addEventListener("submit", async function (event) {
 					event.preventDefault();
-
 					// First validate the form
 					if (!validateForm()) {
 						return;
@@ -298,30 +296,62 @@
 
 					try {
 						// Execute reCAPTCHA
-						await new Promise((resolve) => {
+						await new Promise((resolve, reject) => {
 							grecaptcha.ready(async function () {
-								const token = await grecaptcha.execute("6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR", {
-									action: "submit",
-								});
+								try {
+									const token = await grecaptcha.execute("6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR", {
+										action: "submit",
+									});
 
-								// Verify the token
-								const response = await verifyToken(token);
+									// Verify the token
+									const response = await verifyToken(token);
 
-								if (response.success && response.score > 0.5) {
-									// Open Calendly in new tab
-									window.open("https://calendly.com/typewriters/30min", "_blank");
+									if (response.success && response.score > 0.5) {
+										// Prepare form data
+										const formData = {
+											firstname: document.getElementById("firstname").value,
+											jobtitle: document.getElementById("jobtitle").value,
+											email: document.getElementById("email").value,
+											phone: document.getElementById("phone").value,
+											website: document.getElementById("website").value,
+											company_size: document.getElementById("company_size").value,
+											budget: document.getElementById("budget").value,
+											interested_in: document.getElementById("interested_in").value,
+											industry: document.getElementById("industry").value,
+										};
 
-									// Submit the form
-									form.submit();
-								} else {
-									throw new Error("Security check failed");
+										// Send email through Netlify function
+										const emailResponse = await fetch("/.netlify/functions/send-email", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json",
+											},
+											body: JSON.stringify(formData),
+										});
+
+										if (!emailResponse.ok) {
+											throw new Error("Failed to send email");
+										}
+
+										// If email sent successfully, open Calendly and submit form
+										window.open("https://calendly.com/typewriters/30min", "_blank");
+										form.submit();
+										resolve();
+									} else {
+										reject(new Error("Security check failed"));
+									}
+								} catch (error) {
+									reject(error);
 								}
-
-								resolve();
 							});
 						});
 					} catch (error) {
-						alert("Security check failed. Please try again later.");
+						console.error("Error:", error);
+						if (error.message === "Security check failed") {
+							alert("Security check failed. Please try again later.");
+						} else {
+							alert("There was an error submitting the form. Please try again.");
+						}
 					}
 				});
 			});
