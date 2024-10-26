@@ -14,14 +14,19 @@
 	</head>
 	<body>
 		<form id="newForm" class="uui-contact03_form">
+			<!-- Name -->
 			<div class="uui-form-field-wrapper">
 				<label for="name" class="uui-field-label">Name</label>
 				<input type="text" id="name" name="name" required class="uui-form_input-3 w-input" />
 			</div>
+
+			<!-- Job Title -->
 			<div class="uui-form-field-wrapper">
 				<label for="jobtitle" class="uui-field-label">Job title</label>
 				<input type="text" id="jobtitle" name="jobtitle" required class="uui-form_input-3 w-input" />
 			</div>
+
+			<!-- Business Email -->
 			<div class="uui-form-field-wrapper">
 				<label for="email" class="uui-field-label">Business email</label>
 				<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
@@ -29,6 +34,8 @@
 					Please enter a valid business email.
 				</p>
 			</div>
+
+			<!-- Phone Number -->
 			<div class="uui-form-field-wrapper">
 				<label for="phone" class="uui-field-label">Phone number</label>
 				<input type="tel" id="phone" name="phone" required class="uui-form_input-3 w-input" placeholder="" />
@@ -36,6 +43,8 @@
 					Please enter a valid phone number.
 				</p>
 			</div>
+
+			<!-- Company Website -->
 			<div class="uui-form-field-wrapper">
 				<label for="website" class="uui-field-label">Company website</label>
 				<input
@@ -47,6 +56,7 @@
 					class="uui-form_input-3 w-input"
 					placeholder="typewriters.io" />
 			</div>
+
 			<!-- Company Size -->
 			<div class="uui-form-field-wrapper">
 				<label for="company-size-trigger" class="uui-field-label">Company size</label>
@@ -173,12 +183,32 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Message Section -->
+			<div class="uui-form-field-wrapper">
+				<label for="message" class="uui-field-label">Message</label>
+				<textarea
+					id="message"
+					name="message"
+					class="uui-form_select-3"
+					maxlength="200"
+					rows="4"
+					placeholder="Enter your message here..."
+					required></textarea>
+				<div class="character-count" id="message-character-count">
+					<span id="current-count">0</span>/200 characters
+				</div>
+			</div>
+
+			<!-- Consent Checkbox -->
 			<div class="privacy-consent-container">
 				<input type="checkbox" class="privacy-consent-checkbox" id="privacy-consent-checkbox" required />
 				<label class="privacy-consent-label" style="margin-bottom: 0px" for="privacy-consent-checkbox"
 					>You agree to our <a href="/privacy-policy" class="privacy-consent-link">privacy policy</a>.</label
 				>
 			</div>
+
+			<!-- Submit Button -->
 			<div class="uui-form-button-wrapper">
 				<button type="submit" class="custom-submit-button" id="submit-button">Continue</button>
 			</div>
@@ -192,6 +222,13 @@
 				const phoneError = document.getElementById("phoneError");
 				const selectContainers = document.querySelectorAll(".custom-select-container");
 				const privacyCheckbox = document.getElementById("privacy-consent-checkbox");
+				const messageArea = document.getElementById("message");
+				const currentCount = document.getElementById("current-count");
+
+				messageArea.addEventListener("input", function () {
+					const remaining = this.value.length;
+					currentCount.textContent = remaining;
+				});
 
 				// Initialize existing functionality
 				window.dropdownHandler.initializeCustomDropdowns(selectContainers);

@@ -179,3 +179,29 @@
 .privacy-consent-checkbox:not(:checked):hover {
 	border-color: rgb(127, 86, 217);
 }
+
+textarea.uui-form_select-3 {
+	resize: vertical;
+	min-height: 100px;
+	width: 100%;
+	border: 1px solid #e5e7eb;
+	border-radius: 4px;
+	display: flex;
+	transition: all 0.2s ease-in-out;
+}
+
+textarea.uui-form_select-3:hover {
+	border-color: #6d43cc;
+}
+
+textarea.uui-form_select-3:focus {
+	outline: none;
+	border-color: #6d43cc;
+}
+
+.character-count {
+	font-size: 0.875rem;
+	color: #666;
+	text-align: right;
+	margin-top: 0.25rem;
+}
