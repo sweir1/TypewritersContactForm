@@ -15,8 +15,8 @@
 	<body>
 		<form id="newForm" class="uui-contact03_form">
 			<div class="uui-form-field-wrapper">
-				<label for="firstname" class="uui-field-label">Name</label>
-				<input type="text" id="firstname" name="firstname" required class="uui-form_input-3 w-input" />
+				<label for="name" class="uui-field-label">Name</label>
+				<input type="text" id="name" name="name" required class="uui-form_input-3 w-input" />
 			</div>
 			<div class="uui-form-field-wrapper">
 				<label for="jobtitle" class="uui-field-label">Job title</label>
@@ -191,10 +191,28 @@
 				const phoneInput = document.getElementById("phone");
 				const phoneError = document.getElementById("phoneError");
 				const selectContainers = document.querySelectorAll(".custom-select-container");
+				const privacyCheckbox = document.getElementById("privacy-consent-checkbox");
 
 				// Initialize existing functionality
 				window.dropdownHandler.initializeCustomDropdowns(selectContainers);
 				window.phoneValidator.formatPhoneNumber(phoneInput);
+
+				// Add warm-up functionality
+				privacyCheckbox.addEventListener("change", function () {
+					// Warm up recaptcha verification
+					fetch("https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/verify-recaptcha", {
+						mode: "no-cors",
+					}).catch((error) => {
+						// Silently catch and ignore the error
+					});
+
+					// Warm up email function
+					fetch("https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/send-email", {
+						mode: "no-cors",
+					}).catch((error) => {
+						// Silently catch and ignore the error
+					});
+				});
 
 				// Form Validation Logic
 				function validateForm() {
@@ -287,7 +305,6 @@
 					if (!validateForm()) {
 						return;
 					}
-
 					try {
 						// Execute reCAPTCHA
 						await new Promise((resolve, reject) => {
@@ -296,14 +313,15 @@
 									const token = await grecaptcha.execute("6Le2l9UpAAAAAAqPCVBq6hdumV0KR79KO0UPyQLR", {
 										action: "submit",
 									});
-
 									// Verify the token
 									const response = await verifyToken(token);
-
 									if (response.success && response.score > 0.5) {
+										// Open Calendly immediately after captcha verification
+										window.open("https://calendly.com/typewriters/30min", "_blank");
+
 										// Prepare form data
 										const formData = {
-											firstname: document.getElementById("firstname").value,
+											firstname: document.getElementById("name").value,
 											jobtitle: document.getElementById("jobtitle").value,
 											email: document.getElementById("email").value,
 											phone: document.getElementById("phone").value,
@@ -314,8 +332,8 @@
 											industry: document.getElementById("industry").value,
 										};
 
-										// Start email sending process but don't await it
-										const emailPromise = fetch(
+										// Send email and wait for response
+										const emailResponse = await fetch(
 											"https://subtle-phoenix-a52fad.netlify.app/.netlify/functions/send-email",
 											{
 												method: "POST",
@@ -326,23 +344,12 @@
 											},
 										);
 
-										// Open Calendly immediately after captcha verification
-										window.open("https://calendly.com/typewriters/30min", "_blank");
+										if (!emailResponse.ok) {
+											console.error("Failed to send email");
+										}
 
-										// Submit form
+										// Submit form after email is sent (regardless of email success)
 										form.submit();
-
-										// Handle email response in the background
-										emailPromise
-											.then((response) => {
-												if (!response.ok) {
-													console.error("Failed to send email");
-												}
-											})
-											.catch((error) => {
-												console.error("Error sending email:", error);
-											});
-
 										resolve();
 									} else {
 										reject(new Error("Security check failed"));
