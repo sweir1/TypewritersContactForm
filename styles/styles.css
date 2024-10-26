@@ -117,6 +117,7 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	margin-top: -1.5rem;
 }
 
 .privacy-consent-checkbox {
@@ -202,4 +203,8 @@ textarea.uui-form_select-3:focus {
 	color: #666;
 	text-align: right;
 	margin-top: 0.25rem;
+}
+
+.uui-form-button-wrapper {
+	margin-top: 0px;
 }
