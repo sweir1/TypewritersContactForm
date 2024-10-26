@@ -2,14 +2,10 @@ const nodemailer = require("nodemailer");
 
 // Allowed origins for CORS
 const allowedOrigins = [
-	"http://localhost:3000",
-	"http://localhost:5000",
-	"http://localhost:8000",
 	"http://localhost:8888",
-	"http://127.0.0.1:5500",
 	"https://subtle-phoenix-a52fad.netlify.app",
 	"https://typewriters.io",
-	"https://eduardos-stupendous-site-4488f5.webflow.io/",
+	"https://eduardos-stupendous-site-4488f5.webflow.io",
 ];
 
 exports.handler = async (event, context) => {
@@ -24,6 +20,7 @@ exports.handler = async (event, context) => {
 					"Access-Control-Allow-Headers": "Content-Type",
 					"Access-Control-Allow-Methods": "POST, OPTIONS",
 					"Access-Control-Max-Age": "86400",
+					"Vary": "Origin",
 				},
 			};
 		}
@@ -108,6 +105,7 @@ exports.handler = async (event, context) => {
 				"Access-Control-Allow-Origin": origin,
 				"Access-Control-Allow-Headers": "Content-Type",
 				"Access-Control-Allow-Methods": "POST, OPTIONS",
+				"Vary": "Origin",
 			},
 			body: JSON.stringify({ message: "Email sent successfully" }),
 		};
@@ -119,6 +117,7 @@ exports.handler = async (event, context) => {
 				"Access-Control-Allow-Origin": origin,
 				"Access-Control-Allow-Headers": "Content-Type",
 				"Access-Control-Allow-Methods": "POST, OPTIONS",
+				"Vary": "Origin",
 			},
 			body: JSON.stringify({ error: "Failed to send email" }),
 		};

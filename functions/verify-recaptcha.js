@@ -1,25 +1,41 @@
 const axios = require("axios");
 
+// Allowed origins for CORS
 const allowedOrigins = [
-	"http://localhost:3000",
-	"http://localhost:5000",
-	"http://localhost:8000",
 	"http://localhost:8888",
-	"http://127.0.0.1:5500",
 	"https://subtle-phoenix-a52fad.netlify.app",
 	"https://typewriters.io",
-	"https://eduardos-stupendous-site-4488f5.webflow.io/",
+	"https://eduardos-stupendous-site-4488f5.webflow.io",
 ];
 
 exports.handler = async (event) => {
+	// Get and validate origin
+	const origin = event.headers.origin || event.headers.Origin;
+	if (!allowedOrigins.includes(origin)) {
+		return {
+			statusCode: 403,
+			body: JSON.stringify({
+				success: false,
+				error: "Origin not allowed",
+			}),
+		};
+	}
+
+	// Common CORS headers
+	const corsHeaders = {
+		"Access-Control-Allow-Origin": origin,
+		"Access-Control-Allow-Methods": "POST, OPTIONS",
+		"Access-Control-Allow-Headers": "Content-Type",
+		"Vary": "Origin",
+	};
+
 	// Handle CORS preflight requests
 	if (event.httpMethod === "OPTIONS") {
 		return {
 			statusCode: 200,
 			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Methods": "POST, OPTIONS",
-				"Access-Control-Allow-Headers": "Content-Type",
+				...corsHeaders,
+				"Access-Control-Max-Age": "86400",
 			},
 			body: "",
 		};
@@ -47,19 +63,15 @@ exports.handler = async (event) => {
 
 		return {
 			statusCode: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Methods": "POST, OPTIONS",
-				"Access-Control-Allow-Headers": "Content-Type",
-			},
+			headers: corsHeaders,
 			body: JSON.stringify(verificationResponse.data),
 		};
 	} catch (error) {
+		console.error("ReCAPTCHA verification error:", error);
+
 		return {
 			statusCode: 500,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-			},
+			headers: corsHeaders,
 			body: JSON.stringify({
 				success: false,
 				error: error.message,

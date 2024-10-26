@@ -25,7 +25,9 @@
 			<div class="uui-form-field-wrapper">
 				<label for="email" class="uui-field-label">Business email</label>
 				<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
-				<p id="emailError" style="display: none">Please enter a valid business email.</p>
+				<p id="emailError" style="display: none; color: red; font-size: 0.8em; margin-top: 4px">
+					Please enter a valid business email.
+				</p>
 			</div>
 			<div class="uui-form-field-wrapper">
 				<label for="phone" class="uui-field-label">Phone number</label>
@@ -113,9 +115,10 @@
 					class="uui-form_select-3 w-select"
 					tabindex="-1">
 					<option value="">Select solution</option>
-					<option value="solution1">Solution 1</option>
-					<option value="solution2">Solution 2</option>
-					<option value="solution3">Solution 3</option>
+					<option value="email">Email Marketing</option>
+					<option value="translations">Translations</option>
+					<option value="localization">Website Localization</option>
+					<option value="copywriting">Copywriting</option>
 				</select>
 				<div class="custom-select-container">
 					<div
@@ -127,9 +130,10 @@
 						Select solution
 					</div>
 					<div class="custom-options" role="listbox">
-						<div class="custom-option" data-value="solution1" role="option">Solution 1</div>
-						<div class="custom-option" data-value="solution2" role="option">Solution 2</div>
-						<div class="custom-option" data-value="solution3" role="option">Solution 3</div>
+						<div class="custom-option" data-value="email" role="option">Email Marketing</div>
+						<div class="custom-option" data-value="translations" role="option">Translations</div>
+						<div class="custom-option" data-value="localization" role="option">Website Localization</div>
+						<div class="custom-option" data-value="copywriting" role="option">Copywriting</div>
 					</div>
 				</div>
 			</div>
@@ -139,9 +143,14 @@
 				<label for="industry-trigger" class="uui-field-label">Industry</label>
 				<select id="industry" name="industry" required class="uui-form_select-3 w-select" tabindex="-1">
 					<option value="">Select industry</option>
-					<option value="tech">Technology</option>
-					<option value="finance">Finance</option>
-					<option value="healthcare">Healthcare</option>
+					<option value="fashion">Fashion</option>
+					<option value="ecommerce">Ecommerce</option>
+					<option value="retail">Retail</option>
+					<option value="beauty">Beauty</option>
+					<option value="realestate">Real Estate</option>
+					<option value="webdev">Web Development</option>
+					<option value="apparel">Apparel/Niche</option>
+					<option value="travel">Travel & Tourism</option>
 				</select>
 				<div class="custom-select-container">
 					<div
@@ -153,15 +162,20 @@
 						Select industry
 					</div>
 					<div class="custom-options" role="listbox">
-						<div class="custom-option" data-value="tech" role="option">Technology</div>
-						<div class="custom-option" data-value="finance" role="option">Finance</div>
-						<div class="custom-option" data-value="healthcare" role="option">Healthcare</div>
+						<div class="custom-option" data-value="fashion" role="option">Fashion</div>
+						<div class="custom-option" data-value="ecommerce" role="option">Ecommerce</div>
+						<div class="custom-option" data-value="retail" role="option">Retail</div>
+						<div class="custom-option" data-value="beauty" role="option">Beauty</div>
+						<div class="custom-option" data-value="realestate" role="option">Real Estate</div>
+						<div class="custom-option" data-value="webdev" role="option">Web Development</div>
+						<div class="custom-option" data-value="apparel" role="option">Apparel/Niche</div>
+						<div class="custom-option" data-value="travel" role="option">Travel & Tourism</div>
 					</div>
 				</div>
 			</div>
 			<div class="privacy-consent-container">
 				<input type="checkbox" class="privacy-consent-checkbox" id="privacy-consent-checkbox" required />
-				<label class="privacy-consent-label" for="privacy-consent-checkbox"
+				<label class="privacy-consent-label" style="margin-bottom: 0px" for="privacy-consent-checkbox"
 					>You agree to our <a href="/privacy-policy" class="privacy-consent-link">privacy policy</a>.</label
 				>
 			</div>
