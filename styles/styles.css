@@ -22,7 +22,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	transition: all 0.2s ease;
+	transition: all 0.3s ease;
 	font-size: 1rem;
 	line-height: 1.5;
 	box-shadow: 0 1px 2px #1018280d;
@@ -35,7 +35,7 @@
 	border-right: 2px solid #6b7280;
 	border-bottom: 2px solid #6b7280;
 	transform: rotate(45deg) translateY(-2px);
-	transition: transform 0.2s ease;
+	transition: transform 0.3s ease;
 }
 
 .custom-select-container.open .custom-select-trigger::after {
@@ -53,7 +53,7 @@
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.2s ease;
+	transition: all 0.3s ease;
 	z-index: 10;
 }
 
@@ -65,7 +65,7 @@
 .custom-option {
 	padding: 0.5rem 0.875rem;
 	cursor: pointer;
-	transition: all 0.2s ease;
+	transition: all 0.3s ease;
 	font-size: 1rem;
 	line-height: 1.5;
 }
@@ -95,15 +95,17 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 46px;
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: 600;
 	color: white;
 	background-color: rgb(127, 86, 217);
 	border: 1px solid rgb(127, 86, 217);
 	border-radius: 0.5rem;
-	padding: 10px 18px;
+	padding: 0.625rem 1.125rem;
 	cursor: pointer;
+	line-height: 1.5;
+	transition: all 0.3s ease;
+	box-shadow: 0 1px 2px #1018280d;
 }
 
 .custom-submit-button:hover {
@@ -128,7 +130,7 @@
 	background-color: white;
 	cursor: pointer;
 	position: relative;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
 	margin: 0;
 }
 
@@ -181,7 +183,7 @@ textarea.uui-form_select-3 {
 	border: 1px solid #e5e7eb;
 	border-radius: 0.5rem;
 	display: flex;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
 	font-size: 1rem;
 	padding: 0.5rem 0.875rem;
 	line-height: 1.5;
