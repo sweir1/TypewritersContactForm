@@ -28,6 +28,7 @@
 	align-items: center;
 	transition: all 0.2s ease;
 	font-size: 1rem;
+	line-height: 1.5;
 }
 
 .custom-select-trigger::after {
@@ -184,6 +185,7 @@ textarea.uui-form_select-3 {
 	transition: all 0.2s ease-in-out;
 	font-size: 1rem;
 	padding: 0.5rem 0.875rem;
+	line-height: 1.5;
 }
 
 textarea.uui-form_select-3:hover {
