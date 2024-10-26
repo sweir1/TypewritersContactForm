@@ -9,11 +9,7 @@
 .custom-select-container {
 	position: relative;
 	width: 100%;
-}
-
-.custom-select-container {
-	position: relative;
-	width: 100%;
+	min-height: 2.75rem;
 }
 
 .custom-select-trigger {
@@ -29,6 +25,7 @@
 	transition: all 0.2s ease;
 	font-size: 1rem;
 	line-height: 1.5;
+	box-shadow: 0 1px 2px #1018280d;
 }
 
 .custom-select-trigger::after {
@@ -70,6 +67,7 @@
 	cursor: pointer;
 	transition: all 0.2s ease;
 	font-size: 1rem;
+	line-height: 1.5;
 }
 
 .custom-option:hover {
@@ -187,6 +185,7 @@ textarea.uui-form_select-3 {
 	font-size: 1rem;
 	padding: 0.5rem 0.875rem;
 	line-height: 1.5;
+	box-shadow: 0 1px 2px #1018280d;
 }
 
 textarea.uui-form_select-3:hover {
