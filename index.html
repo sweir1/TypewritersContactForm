@@ -17,19 +17,37 @@
 			<!-- Name -->
 			<div class="uui-form-field-wrapper">
 				<label for="name" class="uui-field-label">Name</label>
-				<input type="text" id="name" name="name" required class="uui-form_input-3 w-input" />
+				<input
+					type="text"
+					id="name"
+					name="name"
+					required
+					class="uui-form_input-3 w-input"
+					autocomplete="name" />
 			</div>
 
 			<!-- Job Title -->
 			<div class="uui-form-field-wrapper">
 				<label for="jobtitle" class="uui-field-label">Job title</label>
-				<input type="text" id="jobtitle" name="jobtitle" required class="uui-form_input-3 w-input" />
+				<input
+					type="text"
+					id="jobtitle"
+					name="jobtitle"
+					required
+					class="uui-form_input-3 w-input"
+					autocomplete="organization-title" />
 			</div>
 
 			<!-- Business Email -->
 			<div class="uui-form-field-wrapper">
 				<label for="email" class="uui-field-label">Business email</label>
-				<input type="email" id="email" name="email" required class="uui-form_input-3 w-input" />
+				<input
+					type="email"
+					id="email"
+					name="email"
+					required
+					class="uui-form_input-3 w-input"
+					autocomplete="email" />
 				<p id="emailError" style="display: none; color: red; font-size: 0.8em; margin-top: 4px">
 					Please enter a valid business email.
 				</p>
@@ -38,7 +56,14 @@
 			<!-- Phone Number -->
 			<div class="uui-form-field-wrapper">
 				<label for="phone" class="uui-field-label">Phone number</label>
-				<input type="tel" id="phone" name="phone" required class="uui-form_input-3 w-input" placeholder="" />
+				<input
+					type="tel"
+					id="phone"
+					name="phone"
+					required
+					class="uui-form_input-3 w-input"
+					placeholder=""
+					autocomplete="tel" />
 				<p id="phoneError" style="display: none; color: red; font-size: 0.8em; margin-top: 4px">
 					Please enter a valid phone number.
 				</p>
@@ -54,7 +79,8 @@
 					required
 					pattern="^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-]*)*$"
 					class="uui-form_input-3 w-input"
-					placeholder="typewriters.io" />
+					placeholder="typewriters.io"
+					autocomplete="url" />
 			</div>
 
 			<!-- Company Size -->
@@ -367,6 +393,7 @@
 											budget: document.getElementById("budget").value,
 											interested_in: document.getElementById("interested_in").value,
 											industry: document.getElementById("industry").value,
+											usermessage: document.getElementById("message").value || "N/A",
 										};
 
 										// Send email and wait for response

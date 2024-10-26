@@ -40,7 +40,18 @@ exports.handler = async (event, context) => {
 
 	try {
 		const data = JSON.parse(event.body);
-		const { firstname, jobtitle, email, phone, website, company_size, budget, interested_in, industry } = data;
+		const {
+			firstname,
+			jobtitle,
+			email,
+			phone,
+			website,
+			company_size,
+			budget,
+			interested_in,
+			industry,
+			usermessage,
+		} = data;
 
 		// Create transporter
 		let transporter = nodemailer.createTransport({
@@ -83,6 +94,7 @@ exports.handler = async (event, context) => {
                     <p><span class="highlight">Monthly Budget:</span> ${budget}</p>
                     <p><span class="highlight">Industry:</span> ${industry}</p>
                     <p><span class="highlight">Interested In:</span> ${interested_in}</p>
+                    <p><span class="highlight">Message:</span> ${usermessage}</p>
                 </div>
                 <p>Please follow up with this contact as soon as possible.</p>
             </div>
